@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayinModels : MonoBehaviour
@@ -13,8 +14,19 @@ public class PlayinModels : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log(" collision name >>>>" + this.gameObject.name);
+        if(ApplicationManager.Instance.GameManager.rotateOn)
+            return;
+
 
         ClickOnObject();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("3DModels"))
+        {
+            Physics.IgnoreLayerCollision(LayerMask.NameToLayer("3DModels"), LayerMask.NameToLayer("3DModels"), true);
+        }
     }
 
     #endregion

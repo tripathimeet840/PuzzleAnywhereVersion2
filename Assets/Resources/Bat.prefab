@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8629926155978646066}
   - component: {fileID: 8136172005404446200}
   - component: {fileID: 8066581485409400511}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4234407249216137485}
   - component: {fileID: 2831101979417123470}
   - component: {fileID: 4171397253732946947}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}

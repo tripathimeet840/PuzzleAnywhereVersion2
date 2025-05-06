@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 
 
@@ -56,6 +57,12 @@ public class GameManager : MonoBehaviour
     bool spawned;
     private GameObject planeIndicatorInstance;
     private GameObject defaultPlaneIndicator;
+    private float initialAngle;
+    private Quaternion initialRotation;
+    private float initialDistance;
+    private Vector3 initialScale;
+    public bool rotateOn;
+    public GameObject targetObject;
     #endregion
 
 
@@ -66,6 +73,13 @@ public class GameManager : MonoBehaviour
     public GameObject pop_UpPanel;
     public GameObject wrongPanel;
     public TextMeshProUGUI AlphabetIcon;
+
+
+    [SerializeField]
+    Sprite rotateSpriteOn,rotateSpriteOff;
+
+    [SerializeField]
+    GameObject rotateImg;
 
     #endregion
 
@@ -79,9 +93,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(" start gamemanager ");
 
-       
         ApplicationManager.Instance.GameManager = this;
 
         AlphabetIcon.text = ApplicationManager.Instance.currentAplhabet.Remove(1);
@@ -128,6 +140,73 @@ public class GameManager : MonoBehaviour
             GameDataExecution(this.gameObject.transform);
 
         }
+
+        ///used to rotate the object
+        if(spawned && rotateOn)
+        {
+            //// change the position gameobject
+            //if (Input.touchCount == 1)
+            //{
+            //    Touch touch = Input.GetTouch(0);
+            //    if (touch.phase == TouchPhase.Moved && spawnedBattleField != null)
+            //    {
+            //        List<ARRaycastHit> hits = new List<ARRaycastHit>();
+            //        if (raycastManager.Raycast(touch.position, hits, TrackableType.PlaneWithinPolygon))
+            //        {
+            //            Pose pose = hits[0].pose;
+            //            spawnedBattleField.transform.position = pose.position;
+            //        }
+            //    }
+            //}
+
+
+            if (Input.touchCount == 2)
+            {
+                Touch touch0 = Input.GetTouch(0);
+                Touch touch1 = Input.GetTouch(1);
+
+                if (touch1.phase == TouchPhase.Began)
+                {
+                    initialAngle = AngleBetweenTouches(touch0, touch1);
+                    initialRotation = spawnedBattleField.transform.rotation;
+                }
+                else if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
+                {
+                    float currentAngle = AngleBetweenTouches(touch0, touch1);
+                    float angleDelta = currentAngle - initialAngle;
+
+                    spawnedBattleField.transform.rotation = initialRotation * Quaternion.Euler(0, -angleDelta, 0);
+                }
+            }
+
+            ///used to scale the object
+            if (Input.touchCount == 2)
+            {
+                Touch touch0 = Input.GetTouch(0);
+                Touch touch1 = Input.GetTouch(1);
+
+                // Detect pinch start
+                if (touch1.phase == TouchPhase.Began)
+                {
+                    initialDistance = Vector2.Distance(touch0.position, touch1.position);
+                    initialScale = spawnedBattleField.transform.localScale;
+                }
+                // Pinch in progress
+                else if (touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved)
+                {
+                    float currentDistance = Vector2.Distance(touch0.position, touch1.position);
+                    if (Mathf.Approximately(initialDistance, 0)) return;
+
+                    float scaleFactor = currentDistance / initialDistance;
+                    spawnedBattleField.transform.localScale = initialScale * scaleFactor;
+                }
+            }
+
+
+
+        }
+
+       
 
         //Debug.Log(" arcamera " + arCamera.name);
         //Ray rayOrigin = arCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -273,19 +352,62 @@ public class GameManager : MonoBehaviour
 
     public void NextBtn()
     {
+        if(ApplicationManager.Instance.GetInt(StringDictionary.LastPlayed) == StringDictionary.Z)
+        {
+            SceneManager.LoadScene(StringDictionary.Homescene);
+            return;
+        }
+
+
+
         Debug.LogWarning(" next btrn ");
         ApplicationManager.Instance.IncreaseLevel(StringDictionary.Gamescene);
         //SceneManager.LoadScene(StringDictionary.Gamescene);
     }
 
-    public void HomeBtn()
+    public void HomeBtn(int type)
     {
         Debug.LogWarning(" Home btrn ");
+        if (type == 0)
+        {
+            if (ApplicationManager.Instance.GetInt(StringDictionary.LastPlayed) == StringDictionary.Z)
+            {
+                SceneManager.LoadScene(StringDictionary.Homescene);
+                return;
+            }
 
-        ApplicationManager.Instance.IncreaseLevel(StringDictionary.Homescene);
+            ApplicationManager.Instance.IncreaseLevel(StringDictionary.Homescene);
+
+        }
+        else
+        {
+            SceneManager.LoadScene(StringDictionary.Homescene);
+
+        }
+        //ApplicationManager.Instance.IncreaseLevel(StringDictionary.Homescene);
+        //SceneManager.LoadScene(StringDictionary.Homescene);
+
         //SceneManager.LoadScene(StringDictionary.Homescene);
     }
 
+    public void RotateButton()
+    {
+
+        
+        Image image = rotateImg.gameObject.transform.GetComponent<Image>();
+        if (rotateOn)
+        {
+            rotateOn = false;
+            image.sprite = rotateSpriteOff;
+        }
+        else
+        {
+            rotateOn = true;
+           image.sprite = rotateSpriteOn;
+
+        }
+
+    }
     #endregion
 
 
@@ -308,6 +430,14 @@ public class GameManager : MonoBehaviour
     //        planeIndicatorInstance.transform.position = pos;
     //    }
     //}
+
+    float AngleBetweenTouches(Touch t1, Touch t2)
+    {
+        Vector2 from = t2.position - t1.position;
+        return Mathf.Atan2(from.y, from.x) * Mathf.Rad2Deg;
+    }
+
+
     #endregion
 
     //public class Models

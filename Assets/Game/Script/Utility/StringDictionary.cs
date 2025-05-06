@@ -10,26 +10,26 @@ public class StringDictionary : MonoBehaviour
     public static string C = "Cat";
     public static string D = "Dog";
     public static string E = "Elephant";
-    public static string F = "Frog";
-    public static string G = "Grapes";
-    public static string H = "Hen";
-    public static string I = "IceCream";
-    public static string J = "Jackfruit";
-    public static string K = "Kiwi";
-    public static string L = "Lemon";
-    public static string M = "Mango";
-    public static string N = "Napkin";
-    public static string O = "Orange";
-    public static string P = "Pineapple";
-    public static string Q = "Quill";
-    public static string R = "Rasberry";
-    public static string S = "Strawberry";
-    public static string T = "Tamaraind";
+    public static string F = "Fish";
+    public static string G = "Gift";
+    public static string H = "Helicopter";
+    public static string I = "Injection";
+    public static string J = "JellyFish";
+    public static string K = "kite";
+    public static string L = "Lion";
+    public static string M = "Moon";
+    public static string N = "Notebook";
+    public static string O = "Octo";
+    public static string P = "Pizza";
+    public static string Q = "Question";
+    public static string R = "RadioBox";
+    public static string S = "Snake";
+    public static string T = "Trophy";
     public static string U = "Umbrella";
-    public static string V = "Van";
+    public static string V = "Violin";
     public static string W = "Watermelon";
-    public static string X = "Xylophone";
-    public static string Y = "Yak";
+    public static string X = "XmasTree";
+    public static string Y = "Yarn";
     public static string Z = "Zebra";
     public static string Homescene = "HomeScene";
     public static string Gamescene = "GameScene";
@@ -43,26 +43,26 @@ public class StringDictionary : MonoBehaviour
         { 'C', "Cat" },
         { 'D', "Dog" },
         { 'E', "Elephant" },
-        { 'F', "Frog" },
-        { 'G', "Grapes" },
-        { 'H', "Hen" },
-        { 'I', "IceCream" },
-        { 'J', "Jackfruit" },
-        { 'K', "Kiwi" },
-        { 'L', "Lemon" },
-        { 'M', "Mango" },
-        { 'N', "Napkin" },
-        { 'O', "Orange" },
-        { 'P', "Pineapple" },
-        { 'Q', "Quill" },
-        { 'R', "Rasberry" },
-        { 'S', "Strawberry" },
-        { 'T', "Tamaraind" },
+        { 'F', "Fish" },
+        { 'G', "Gift" },
+        { 'H', "Helicopter" },
+        { 'I', "Injection" },
+        { 'J', "JellyFish" },
+        { 'K', "kite" },
+        { 'L', "Lion" },
+        { 'M', "Moon" },
+        { 'N', "Notebook" },
+        { 'O', "Octo" },
+        { 'P', "Pizza" },
+        { 'Q', "Question" },
+        { 'R', "RadioBox" },
+        { 'S', "Snake" },
+        { 'T', "Trophy" },
         { 'U', "Umbrella" },
-        { 'V', "Van" },
+        { 'V', "Violin" },
         { 'W', "Watermelon" },
-        { 'X', "Xylophone" },
-        { 'Y', "Yak" },
+        { 'X', "XmasTree" },
+        { 'Y', "Yarn" },
         { 'Z', "Zebra" }
     };
 

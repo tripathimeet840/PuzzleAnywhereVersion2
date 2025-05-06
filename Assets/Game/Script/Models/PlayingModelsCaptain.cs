@@ -98,7 +98,7 @@ public class PlayingModelsCaptain : MonoBehaviour
         {
             preFab = Resources.Load<GameObject>(selectedPrefabsName[i]);
             //Debug.LogWarning("paying models pos " + PlayinModels[i].position+ "paying models Localpos " + PlayinModels[i].localPosition);
-            temp = Instantiate(preFab, PlayinModels[i].localPosition,Quaternion.identity,this.gameObject.transform);
+            temp = Instantiate(preFab, PlayinModels[i].localPosition,preFab.transform.localRotation,this.gameObject.transform);
           //  Debug.LogWarning("  temp POS >>"+temp.transform.position+"playuing Models local pos " + PlayinModels[i].localPosition); 
             temp.transform.position = PlayinModels[i].localPosition;
           //  Debug.LogWarning("  temp POS 2>>"+temp.transform.position);  

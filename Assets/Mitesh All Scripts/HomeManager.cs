@@ -180,16 +180,19 @@ public class HomeManager : MonoBehaviour
         for (char i = 'A'; i <= 'Z'; i++)
         {
 
-            if (ApplicationManager.Instance.currentAplhabet == StringDictionary.A) 
+            if (ApplicationManager.Instance.currentAplhabet == StringDictionary.A && ApplicationManager.Instance.GetInt(StringDictionary.LastPlayed) == StringDictionary.A) 
             {
+                Debug.Log(" innnn reture");
                 return;
             }
             else
             {
+                Debug.Log(" innnn else"+ ApplicationManager.Instance.GetInt(StringDictionary.LastPlayed).Remove(1));
+
                 alfabetHandlers[j].AbcLockOnOff(false);
                 alfabetHandlers[j].AbcTickOnOff(true);
                 j++;
-                if (i.ToString() == templevelCharacter)
+                if (i.ToString() == ApplicationManager.Instance.GetInt(StringDictionary.LastPlayed).Remove(1))
                 {
                     Debug.LogWarning("  templevelCharacter  >>>>>>" + templevelCharacter);
                     alfabetHandlers[j-1].AbcTickOnOff(false);
